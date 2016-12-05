@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>X-Men Hangman !</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://bootswatch.com/cyborg/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+</head>
+<body>
+      <h1>X-Men Hangman!!</h1>
+Type a letter (then press guess)
+<input id="guess" type="text">
+<input type="button" value="guess" onClick="guessOne()"/>
+
+<p id="message">&nbsp;</p>
+<p>
+<font size="+3"><span id="answer">puzzle loading..</span></font>
+</p>
+<p id="myLives"></p>
+
+<script>
+
+var WORDS = [
+   "wolverine",
+   "cyclops",
+   "jubilee",
+   "storm",
+   "beast",
+   "morph",
+   "rogue"
+];
+
+// word stores the word we want the player to guess
+var word="";
+// answerArray stores the answer board (starting with all _ and gradually filled in)
+var answerArray = [];
+
+
+// document.onkeyup = function(){
+//   alert("Guess an X-Men character.")
+// }   this code alerts every time a keys is pressed instead of how i want it too, which is just in the beginning to start the game. 
+
+function init(){
+  // Pick a random word
+  word = WORDS[Math.floor(Math.random() * WORDS.length)];
+  // Set up the answer array
+  answerArray = [];
+  for (var i = 0; i < word.length; i++) {
+    answerArray[i] = "_";
+  }
+  document.getElementById("answer").innerHTML= answerArray.join(" ");
+  document.getElementById("message").innerHTML= "Type a letter then press guess."
+}
+init();
+
+function guessOne() {
+    // Get a guess from the player
+    var guess = document.getElementById("guess").value;
+    var showThisMessage = "";
+
+  if (guess.length !== 1) {
+      showThisMessage ="Please enter only a single letter";
+  }
+
+   else {
+
+        // Update the game with the guess
+        var i=0; // an indexer into the array 
+        for (i = 0; i < word.length; i++) {
+            if (word[i] === guess) {
+                answerArray[i] = guess;
+                showThisMessage = "YES! "+guess+" is in the answer";
+            }
+        }
+
+        // Update the game for remaining unknowns
+        var remaining_letters = answerArray.length;
+        // recount the remaining letters
+        for (i = 0; i < answerArray.length; i++) {
+            if (answerArray[i] !== '_') {
+                remaining_letters -= 1;
+            }
+        }
+
+        // if no remaining letters, hurray, you won
+        if (remaining_letters == 0) {
+            showThisMessage = "YES! You guessed the word";
+        }
+
+        // (otherwise) if we have no message, wrong guess 
+        if (showThisMessage === "") {
+            showThisMessage = "Sorry, no "+guess;
+        }
+
+      
+
+        // Update the puzzle
+        document.getElementById("answer").innerHTML = answerArray.join(" ");
+
+        // Lend a hand by clearing out their last guess
+        document.getElementById("guess").value = "";
+  }
+  document.getElementById("message").innerHTML = showThisMessage;
+}
+
+function livesleft(){
+
+      var lives;
+var showLives = document.getElementById("myLives");
+
+      for (lives = 10; lives >= 0 ; lives --){
+        showLives.innerHTML = "You have " + lives + "lives left."
+
+
+
+
+      }
+
+}
+
+
+</script>
+
+</body>
+</html>

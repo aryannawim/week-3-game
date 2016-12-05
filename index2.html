@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Random Letter Choosing Game</title>
+</head>
+<body>
+
+	<h1>Choose a random letter. </h1>
+	<form>
+		Choose a letter.
+		<input id="guess" type="text" size="10" /> <br>
+		<input type="button" value="Guess" onclick="checkguess()" /> <br>
+		<input id="output" type="text" size="30" /> <br>
+
+
+
+	<script>
+	var theLetter = ["a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F", "g", "G", "h", "H", "i", "I", 
+	"j", "J", "k", "K", "m", "M", "n", "N", "o", "O", "p", "P", "q", "Q", "r" , "R", "s", "S", "t", "T", "u", "U", 
+	"v", "V", "w", "W", "x", "X", "Y", "y", "z", "Z"]; 	
+	var guesstheLetter = Math.floor(Math.random()*52); 
+	var correctLetter = theLetter[guesstheLetter]; 
+console.log(correctLetter);	 //needs to be user input. 
+	function checkguess(){
+
+		// access the contents of this guess input field. 
+		
+		var output = document.getElementById('output');
+
+
+
+		if (guess === correctLetter) {
+			//alert("You guessed correctly!");
+			var guess = document.getElementById('guess');
+			output.value = "You guessed the letter correctly.";
+
+		}
+		else{
+			//alert("You didn't guess right."); 
+			output.value = "You didn't guess right.";
+		}
+		
+
+	}
+
+
+
+
+	</script>
+
+	</form>
+</body>
+</html>
